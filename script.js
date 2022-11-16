@@ -48,5 +48,5 @@ function game() {
             totalWins++;
         }
     }
-    (nPlayerWins > totalWins / 2) ? console.log("You win!") : nPlayerWins == totalWins ? (console.log("Draw!")) : console.log("You lost!");
+    (nPlayerWins > totalWins / 2) ? console.log("You won the game!") : nPlayerWins == totalWins ? (console.log("The game is a draw!")) : console.log("You lost the game!");
 }
