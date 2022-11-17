@@ -30,23 +30,62 @@ function playRound(playerSelection, computerSelection) {
     return winner;
 }
 
-let playerRoundWinner = (playerSelection, computerSelection) => console.log(`You win! ${playerSelection} beats ${computerSelection}`);
-let computerRoundWinner = (playerSelection, computerSelection) => console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
-let draw = () => console.log('Draw!');
+let playerRoundWinner = (playerSelection, computerSelection) => document.getElementById('results').innerHTML = (`You win! ${playerSelection} beats ${computerSelection}`);
+let computerRoundWinner = (playerSelection, computerSelection) => document.getElementById('results').innerHTML = (`You lose! ${computerSelection} beats ${playerSelection}`);
+let draw = () => document.getElementById('results').innerHTML = "Draw!";
 
 function game() {
     let totalWins = 0, nPlayerWins = 0;
-    for (let i = 0; i < 5; i++) {
-        computerSelection = getComputerChoice();
-        let playerSelection = prompt("Please enter rock, paper, or scissors");
-        winner = playRound(playerSelection, computerSelection);
-        
-        if (winner != "draw") {
-            if (winner === "player") {
-                nPlayerWins++;
-            }
-            totalWins++;
+    computerSelection = getComputerChoice();
+    let playerSelection = prompt("Please enter rock, paper, or scissors");
+    winner = playRound(playerSelection, computerSelection);
+    
+    if (winner != "draw") {
+        if (winner === "player") {
+            nPlayerWins++;
         }
+        totalWins++;
     }
-    (nPlayerWins > totalWins / 2) ? console.log("You won the game!") : nPlayerWins == totalWins ? (console.log("The game is a draw!")) : console.log("You lost the game!");
+    (nPlayerWins > totalWins / 2) ? console.log("You won the game!") : nPlayerWins == totalWins ? (console.log("The game is a draw!")) : console.log("You lost the gamecd!");
+}
+
+let totalWins = 0, nPlayerWins = 0;
+
+const paper = document.getElementById("paper");
+paper.addEventListener('click', () => {
+    winner = playRound("paper", getComputerChoice())
+    scoreTally()
+});
+
+const scissors = document.getElementById("scissors");
+scissors.addEventListener('click', () => {
+    winner = playRound("scissors", getComputerChoice())
+    scoreTally()
+});
+
+const rock = document.getElementById("rock");
+rock.addEventListener('click', () => {
+    winner = playRound("rock", getComputerChoice())
+    scoreTally()
+});
+
+let scoreTally = () => {
+
+    if (winner != "draw") {
+        if (winner === "player") {
+            nPlayerWins++;
+        }
+        totalWins++;
+    }
+
+    if (nPlayerWins >= 5) {
+        document.getElementById('score').innerHTML = "You won the game!"
+        document.getElementById('result').innerHTML = ""
+    }
+
+    if (totalWins - nPlayerWins >= 5) { 
+        document.getElementById('score').innerHTML = "You lost the game!"
+        document.getElementById('result').innerHTML = ""
+    }
+    document.getElementById('score').innerHTML = (`${nPlayerWins} - ${totalWins - nPlayerWins}`)
 }
